@@ -13,6 +13,15 @@ use mikehaertl\wkhtmlto\Pdf;
 
 class UriToPdf extends Controller
 {
+    public $secureDomanList = [
+        'bstd.ru',
+        'toyota.ru',
+        'lexus.ru',
+        'audi.ru',
+        'obi.ru',
+        'obiclub.ru'
+    ];
+
     public function emailPdf()
     {
         $input = \Input::all();
@@ -68,17 +77,24 @@ class UriToPdf extends Controller
 
     public function getPdf()
     {
-        if (!\Input::has('target_url')) {
+        if (!\Input::has('target_uri')) {
             return \Response::json([
-                'status' => 'Not found'
-            ], 404, [
-//            'Access-Control-Allow-Origin'      => '*',
-//            'Access-Control-Allow-Credentials' => 'true',
-            ], JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES);
+                'status' => 'Укажите параметр target_url'
+            ], 400, [], JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES);
+        }
+        //$parsedUrl['host'];
+
+        if (!$this->isSecureDomain(\Input::get('target_uri'))) {
+            return \Response::json([
+                'status' => 'Forbiddent target: ' . \Input::get('target_uri')
+            ], 404, [], JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES);
         }
 
+
+        parse_url(\Input::get('target_uri'));
+
         $input     = \Input::all();
-        $targetUrl = $input['target_url'];
+        $targetUri = $input['target_uri'];
         unset($input['target_url']);
         $query = http_build_query($input);
 
@@ -89,7 +105,7 @@ class UriToPdf extends Controller
 
 
         //$uri = 'http://toyota-tech-service.coding.dev.bstd.ru/index1.html?' . $query;
-        $uri = $targetUrl . '?' . $query;
+        $uri = $targetUri . '?' . $query;
 
 
         //'http://toyota-tech-service.coding.dev.bstd.ru/index1.html'
@@ -153,5 +169,15 @@ class UriToPdf extends Controller
 //            'Access-Control-Allow-Origin'      => '*',
 //            'Access-Control-Allow-Credentials' => 'true',
         ], JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES);
+    }
+
+    public function isSecureDomain($uri)
+    {
+        $parsedUrl = parse_url($uri);
+        foreach ($this->secureDomanList as $secureDomain) {
+            if (substr($parsedUrl['host'], -strlen($secureDomain)) === $secureDomain) {
+                return true;
+            }
+        }
     }
 }
