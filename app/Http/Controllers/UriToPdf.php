@@ -93,15 +93,27 @@ class UriToPdf extends Controller
 
         parse_url(\Input::get('target_uri'));
 
-        $input     = \Input::all();
-        $targetUri = $input['target_uri'];
-        unset($input['target_url']);
+        $input             = \Input::all();
+        $targetUri         = $input['target_uri'];
+        $wkhtmltopdfParams = @$input['wkhtmltopdf-params'];
+        unset($input['target_url'], $input['wkhtmltopdf-params'], $wkhtmltopdfParams['binary']);
         $query = http_build_query($input);
 
-        $pdf = new Pdf([
-            'binary'           => '/usr/local/bin/wkhtmltopdf',
-            'javascript-delay' => '4000'
-        ]);
+        $params = [
+            'binary' => '/usr/local/bin/wkhtmltopdf',
+            //'javascript-delay' => '4000',
+            //'window-status'    => 'ready-to-print'
+        ];
+
+        //http://pdfgen.microservices.local/api/uri-to-pdf?target_uri=http://toyota-tech-service.coding.dev.bstd.ru/index1.html&wkhtmltopdf-params[javascript-delay]=4000
+
+        if ($wkhtmltopdfParams) {
+            foreach ($wkhtmltopdfParams as $k => $v) {
+                $params[$k] = $v;
+            }
+        }
+
+        $pdf = new Pdf($params);
 
 
         //$uri = 'http://toyota-tech-service.coding.dev.bstd.ru/index1.html?' . $query;
