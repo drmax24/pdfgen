@@ -1,15 +1,12 @@
 <?php
 namespace App\Http\Controllers;
 
-use App\Http\Controllers\Controller;
 use App\Models\DealerCenters\DealerCenter;
 use App\Models\Maintenance\MaintenanceCartSession;
 use App\Models\Maintenance\MaintenanceModel;
 use App\Models\Maintenance\MaintenancePackage;
 use App\Models\Maintenance\MaintenancePart;
 use App\Models\Maintenance\MaintenanceService;
-use Illuminate\Http\Request;
-
 use Illuminate\Support\Facades\Mail;
 use mikehaertl\wkhtmlto\Pdf;
 
@@ -71,14 +68,30 @@ class UriToPdf extends Controller
 
     public function getPdf()
     {
-        $query = http_build_query(\Input::all());
+        if (!\Input::has('target_url')) {
+            return \Response::json([
+                'status' => 'Not found'
+            ], 404, [
+//            'Access-Control-Allow-Origin'      => '*',
+//            'Access-Control-Allow-Credentials' => 'true',
+            ], JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES);
+        }
+
+        $input     = \Input::all();
+        $targetUrl = $input['target_url'];
+        unset($input['target_url']);
+        $query = http_build_query($input);
 
         $pdf = new Pdf([
             'binary'           => '/usr/local/bin/wkhtmltopdf',
             'javascript-delay' => '4000'
         ]);
 
-        $uri = 'http://toyota-tech-service.coding.dev.bstd.ru/index1.html?' . $query;
+
+        //$uri = 'http://toyota-tech-service.coding.dev.bstd.ru/index1.html?' . $query;
+        $uri = $targetUrl . '?' . $query;
+
+
         //'http://toyota-tech-service.coding.dev.bstd.ru/index1.html'
 
 
