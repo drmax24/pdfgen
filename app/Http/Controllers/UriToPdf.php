@@ -124,7 +124,6 @@ class UriToPdf extends Controller
 
 
         $pdf->addPage($uri);
-        //$pdf->addPage('http://toyota-united-forms-2.dev.bstd.ru/credit?d=R019');
         //$pdf->addPage('https://pages.lexus.ru/locator/');
 
         $pdfData = $pdf->toString();
