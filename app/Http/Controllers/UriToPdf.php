@@ -24,7 +24,7 @@ class UriToPdf extends Controller
 
     public function __construct()
     {
-        ini_set('max_execution_time', 90);
+        ini_set('max_execution_time', 20);
         ini_set('memory_limit', "256M");
     }
 
@@ -47,15 +47,15 @@ class UriToPdf extends Controller
         $fromName = 'ДЦ';
         $fromMail = $input['client']['email'];
         $subject  = 'Расчет ТО';
-        $fileName = 'Расчет ТО.pdf';
+        $pdfFileName = 'Расчет ТО.pdf';
 
         $messageText = 'Ваш расчёт готов и находится во вложении.';
 
         Mail::raw($messageText,
-            function ($message) use ($content, $fromMail, $subject, $fromName, $fileName, $input) {
+            function ($message) use ($content, $fromMail, $subject, $fromName, $pdfFileName, $input) {
                 $message->from($fromMail, $fromName);
                 $message->to($input['client']['email'])->subject($subject);
-                $message->attachData($content, $fileName);
+                $message->attachData($content, $pdfFileName);
             });
 
 //        foreach ($data as $k => $v) {
@@ -97,10 +97,20 @@ class UriToPdf extends Controller
         }
 
 
+        if (@$input['pdf_file_name']) {
+            $pdfFileName = $input['file_name'];
+            $ext      = strtolower(pathinfo(@$input['file_name'], PATHINFO_EXTENSION)) !== 'pdf';
+            $pdfFileName .= '.pdf';
+        } else {
+            $pdfFileName = 'Расчет ТО для ' . @$input['file_name'] . '.pdf';
+        }
+
+
         parse_url(\Input::get('target_uri'));
 
-        $input             = \Input::all();
-        $targetUri         = $input['target_uri'];
+        $input     = \Input::all();
+        $targetUri = $input['target_uri'];
+
         $wkhtmltopdfParams = @$input['wkhtmltopdf-params'];
         unset($input['target_url'], $input['wkhtmltopdf-params'], $wkhtmltopdfParams['binary']);
         $query = http_build_query($input);
@@ -139,7 +149,9 @@ class UriToPdf extends Controller
         } else {
             echo $pdf->getError();
         }
-        $pdf->send('Расчет ТО для ' . \Input::get('model_name') . '.pdf');
+
+
+            $pdf->send($pdfFileName);
 
 
         return \Response::json([
@@ -164,20 +176,6 @@ class UriToPdf extends Controller
         */
 
         $pdfData = $this->generatePdf();
-//        $fromName = $input['client']['first_name'];
-        $fromMail = $input['client']['email'];
-        $subject  = 'Расчет ТО';
-        $fileName = 'Расчет ТО';
-
-        $messageText = 'Ваш расчёт готов и находится в приложении.';
-        $emailData   = 'Привет!';
-
-        Mail::raw($messageText,
-            function ($message) use ($emailData, $content, $fromMail, $subject, $fromName, $fileName, $input) {
-                $message->from($fromMail, $fromName);
-                $message->to($input['client']['email'])->subject($subject);
-                $message->attachData($content, $fileName);
-            });
 
 
         return \Response::json([
