@@ -43,7 +43,7 @@ class UriToPdf extends Controller
             ], 404, [], JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES);
         }
 
-        https://pdfgen.bstd.ru/api/uri-to-pdf?target_uri=http://toyota-tech-service.coding.dev.bstd.ru/index1.html&pdf_file_name=file.pdf
+        //https://pdfgen.bstd.ru/api/uri-to-pdf?target_uri=http://toyota-tech-service.coding.dev.bstd.ru/index1.html&pdf_file_name=file.pdf
         if (\Input::has('pdf_file_name')) {
             $pdfFileName = \Input::get('pdf_file_name');
             $ext         = strtolower(pathinfo($pdfFileName, PATHINFO_EXTENSION)) !== 'pdf';
