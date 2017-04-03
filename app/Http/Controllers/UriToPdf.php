@@ -130,7 +130,7 @@ class UriToPdf extends Controller
         }
 
         $pdf = new Pdf($params);
-        $pdf->getInternalGenerator()->setTimeout(30);
+        //$pdf->getInternalGenerator()->setTimeout(30);
 
         //$uri = 'http://toyota-tech-service.coding.dev.bstd.ru/index1.html?' . $query;
         $uri = $targetUri . '?' . $query;
