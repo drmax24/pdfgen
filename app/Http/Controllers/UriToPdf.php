@@ -44,8 +44,8 @@ class UriToPdf extends Controller
         }
 
         https://pdfgen.bstd.ru/api/uri-to-pdf?target_uri=http://toyota-tech-service.coding.dev.bstd.ru/index1.html&pdf_file_name=file.pdf
-        if (@$input['pdf_file_name']) {
-            $pdfFileName = $input['pdf_file_name'];
+        if (\Input::has('pdf_file_name')) {
+            $pdfFileName = \Input::get('pdf_file_name');
             $ext         = strtolower(pathinfo($pdfFileName, PATHINFO_EXTENSION)) !== 'pdf';
             $pdfFileName .= '.pdf';
         } else {
