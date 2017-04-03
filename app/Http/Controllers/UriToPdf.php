@@ -162,28 +162,10 @@ class UriToPdf extends Controller
         ], JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES);
 
 
-        $content = $this->generatePdf();
-        $input   = \Input::all();
-        /*
-                {
-                    "client": {
-                    "first_name": "Иванов",
-                    "last_name": "Иван",
-                    "patronymic": "Иванович",
-                    "phone": "79111234567",
-                    "email": "name@domain.ru"
-                },
-        */
-
-        $pdfData = $this->generatePdf();
+        // пример вызова
+        // $pdfData = $this->generatePdf();
 
 
-        return \Response::json([
-            'status' => 'ok'
-        ], 200, [
-//            'Access-Control-Allow-Origin'      => '*',
-//            'Access-Control-Allow-Credentials' => 'true',
-        ], JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES);
     }
 
     public function isSecureDomain($uri)
