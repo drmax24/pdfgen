@@ -22,6 +22,12 @@ class UriToPdf extends Controller
         'obiclub.ru'
     ];
 
+    public function __construct()
+    {
+        ini_set('max_execution_time', 90);
+        ini_set('memory_limit', "256M");
+    }
+
     public function emailPdf()
     {
         $input = \Input::all();
