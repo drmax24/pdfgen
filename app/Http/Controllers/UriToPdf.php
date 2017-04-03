@@ -24,7 +24,7 @@ class UriToPdf extends Controller
 
     public function __construct()
     {
-        ini_set('max_execution_time', 20);
+        ini_set('max_execution_time', 30);
         ini_set('memory_limit', "256M");
     }
 
@@ -130,7 +130,7 @@ class UriToPdf extends Controller
         }
 
         $pdf = new Pdf($params);
-
+        $pdf->setTimeout(25);
 
         //$uri = 'http://toyota-tech-service.coding.dev.bstd.ru/index1.html?' . $query;
         $uri = $targetUri . '?' . $query;
