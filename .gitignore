@@ -14,4 +14,4 @@ char_cleaner.php
 public/lexus-locator/car-images/
 storage/isc
 ~*
-
+composer.lock
