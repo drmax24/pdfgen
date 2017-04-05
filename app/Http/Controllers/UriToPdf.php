@@ -30,6 +30,8 @@ class UriToPdf extends Controller
 
     public function getPdf()
     {
+        $pdfFileName = '';
+
         if (!\Input::has('target_uri')) {
             return \Response::json([
                 'status' => 'Укажите параметр target_url'
@@ -48,9 +50,8 @@ class UriToPdf extends Controller
             $pdfFileName = \Input::get('pdf_file_name');
             $ext         = strtolower(pathinfo($pdfFileName, PATHINFO_EXTENSION)) !== 'pdf';
             $pdfFileName .= '.pdf';
-        } else {
-            $pdfFileName = 'Расчет ТО для ' . \Input::get('model_name') . '.pdf';
         }
+            //$pdfFileName = 'Расчет ТО для ' . \Input::get('model_name') . '.pdf';
 
 
         parse_url(\Input::get('target_uri'));
@@ -97,8 +98,13 @@ class UriToPdf extends Controller
             echo $pdf->getError();
         }
 
-
-        $pdf->send($pdfFileName);
+        if($pdfFileName) {
+            // Скачать
+            $pdf->send($pdfFileName);
+        } else {
+            // Открыть в браузере
+            $pdf->send();
+        }
 
 
         return \Response::json([
