@@ -23,7 +23,7 @@ class UriToPdf extends Controller
 
     public function __construct()
     {
-        ini_set('max_execution_time', 30);
+        ini_set('max_execution_time', 15);
         ini_set('memory_limit', "256M");
     }
 
