@@ -33,7 +33,7 @@ class CORS
         }
 
         $response->headers->set('Access-Control-Allow-Headers',
-            'Content-Type, X-Auth-Token, Origin, Content-Type, Accept, Authorization, X-Requested-With');
+            'Content-Type, X-Auth-Token, Origin, Accept, Authorization, X-Request, X-Requested-Wit');
         $response->headers->set('Access-Control-Allow-Credentials', 'true');
         $response->headers->set('X-Content-Type-Options', 'nosniff');
 
