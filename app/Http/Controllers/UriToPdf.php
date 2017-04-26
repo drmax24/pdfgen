@@ -51,7 +51,7 @@ class UriToPdf extends Controller
             $ext         = strtolower(pathinfo($pdfFileName, PATHINFO_EXTENSION)) !== 'pdf';
             $pdfFileName .= '.pdf';
         }
-            //$pdfFileName = 'Расчет ТО для ' . \Input::get('model_name') . '.pdf';
+        //$pdfFileName = 'Расчет ТО для ' . \Input::get('model_name') . '.pdf';
 
 
         parse_url(\Input::get('target_uri'));
@@ -98,8 +98,11 @@ class UriToPdf extends Controller
             echo $pdf->getError();
         }
 
-        if($pdfFileName) {
+        if ($pdfFileName) {
             // Скачать
+            header('Access-Control-Allow-Headers: Content-Type, X-Auth-Token, Origin, Accept, Authorization, X-Request, X-Requested-With');
+            header('Access-Control-Allow-Origin: *');
+
             $pdf->send($pdfFileName);
         } else {
             // Открыть в браузере
