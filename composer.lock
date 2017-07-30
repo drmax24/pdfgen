@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "8b0cb9d4fb85b29bfbd45c6504eff484",
+    "content-hash": "99cb1a77e119da360c244f9f516235a4",
     "packages": [
         {
             "name": "bstd/laravel-helpers",
@@ -12,7 +12,7 @@
             "source": {
                 "type": "git",
                 "url": "git@gitlab.bstd.ru:core/laravel-helpers.git",
-                "reference": "49b466a01d98c5102367b770b36af117bdb286cb"
+                "reference": "3ec19a31dcc8080b8fc55c14c7b6d6d663a770dc"
             },
             "require": {
                 "php": ">=5.6.10"
@@ -32,7 +32,7 @@
             "keywords": [
                 "helpers"
             ],
-            "time": "2017-07-12 08:03:23"
+            "time": "2017-07-30 20:38:02"
         },
         {
             "name": "dnoegel/php-xdg-base-dir",
@@ -1252,22 +1252,22 @@
         },
         {
             "name": "sentry/sentry-laravel",
-            "version": "0.4.1",
+            "version": "0.6.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/getsentry/sentry-laravel.git",
-                "reference": "34e4f5d800ce8db087272df4e244bdf565fce4e1"
+                "reference": "21ea11e02da7a6ea344d4e69d1955d2624a00faa"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/getsentry/sentry-laravel/zipball/34e4f5d800ce8db087272df4e244bdf565fce4e1",
-                "reference": "34e4f5d800ce8db087272df4e244bdf565fce4e1",
+                "url": "https://api.github.com/repos/getsentry/sentry-laravel/zipball/21ea11e02da7a6ea344d4e69d1955d2624a00faa",
+                "reference": "21ea11e02da7a6ea344d4e69d1955d2624a00faa",
                 "shasum": ""
             },
             "require": {
                 "illuminate/support": "4.*|5.*",
                 "php": ">=5.2.4",
-                "sentry/sentry": ">=1.5.0"
+                "sentry/sentry": ">=1.6.0"
             },
             "require-dev": {
                 "friendsofphp/php-cs-fixer": "^1.8.0",
@@ -1276,7 +1276,7 @@
             "type": "library",
             "extra": {
                 "branch-alias": {
-                    "dev-master": "0.4.x-dev"
+                    "dev-master": "0.6.x-dev"
                 }
             },
             "autoload": {
@@ -1294,15 +1294,15 @@
                     "email": "dcramer@gmail.com"
                 }
             ],
-            "description": "Laravel integration for Sentry (http://getsentry.com)",
-            "homepage": "http://getsentry.com",
+            "description": "Laravel integration for Sentry (https://sentry.io)",
+            "homepage": "https://sentry.io",
             "keywords": [
                 "errors",
                 "laravel",
                 "logging",
                 "sentry"
             ],
-            "time": "2016-09-30T07:13:57+00:00"
+            "time": "2017-02-09T17:35:04+00:00"
         },
         {
             "name": "swiftmailer/swiftmailer",
