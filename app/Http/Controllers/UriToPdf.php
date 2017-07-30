@@ -1,12 +1,9 @@
 <?php
 namespace App\Http\Controllers;
 
-use App\Models\DealerCenters\DealerCenter;
-use App\Models\Maintenance\MaintenanceCartSession;
-use App\Models\Maintenance\MaintenanceModel;
-use App\Models\Maintenance\MaintenancePackage;
-use App\Models\Maintenance\MaintenancePart;
-use App\Models\Maintenance\MaintenanceService;
+use App\Mail\PdfMail;
+use Illuminate\Support\Facades\Input;
+use Illuminate\Support\Facades\Mail;
 use mikehaertl\wkhtmlto\Pdf;
 
 
@@ -32,31 +29,28 @@ class UriToPdf extends Controller
     {
         $pdfFileName = '';
 
-        if (!\Input::has('target_uri')) {
+        if (!Input::has('target_uri')) {
             return \Response::json([
                 'status' => 'Укажите параметр target_url'
             ], 400, [], JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES);
         }
-        //$parsedUrl['host'];
 
-        if (!$this->isSecureDomain(\Input::get('target_uri'))) {
+        if (!$this->isSecureDomain(Input::get('target_uri'))) {
             return \Response::json([
-                'status' => 'Forbiddent target: ' . \Input::get('target_uri')
+                'status' => 'Forbiddent target: ' . Input::get('target_uri')
             ], 404, [], JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES);
         }
 
-        //https://pdfgen.bstd.ru/api/uri-to-pdf?target_uri=http://toyota-tech-service.coding.dev.bstd.ru/index1.html&pdf_file_name=file.pdf
-        if (\Input::has('pdf_file_name')) {
-            $pdfFileName = \Input::get('pdf_file_name');
+        if (Input::has('pdf_file_name')) {
+            $pdfFileName = Input::get('pdf_file_name');
             $ext         = strtolower(pathinfo($pdfFileName, PATHINFO_EXTENSION)) !== 'pdf';
             $pdfFileName .= '.pdf';
         }
-        //$pdfFileName = 'Расчет ТО для ' . \Input::get('model_name') . '.pdf';
 
 
-        parse_url(\Input::get('target_uri'));
+        parse_url(Input::get('target_uri'));
 
-        $input     = \Input::all();
+        $input     = Input::all();
         $targetUri = $input['target_uri'];
 
         $wkhtmltopdfParams = @$input['wkhtmltopdf-params'];
@@ -79,12 +73,7 @@ class UriToPdf extends Controller
 
         $pdf = new Pdf($params);
         //$pdf->getInternalGenerator()->setTimeout(30);
-
-        //$uri = 'http://toyota-tech-service.coding.dev.bstd.ru/index1.html?' . $query;
         $uri = $targetUri . '?' . $query;
-
-
-        //'http://toyota-tech-service.coding.dev.bstd.ru/index1.html'
 
 
         $pdf->addPage($uri);
@@ -98,30 +87,50 @@ class UriToPdf extends Controller
             echo $pdf->getError();
         }
 
-        if ($pdfFileName) {
-            // Скачать
-            header('Access-Control-Allow-Headers: Content-Type, X-Auth-Token, Origin, Accept, Authorization, X-Request, X-Requested-With');
-            header('Access-Control-Allow-Origin: *');
+        if (Input::get('email.to')) {
 
-            $pdf->send($pdfFileName);
+            $validator = \Validator::make(
+                Input::all(), [
+                    'email.from'    => 'required|email',
+                    'email.to'      => 'required|email',
+                    'email.subject' => 'required',
+                    'email.body'    => 'required',
+                    'pdf_file_name' => 'required',
+                ]
+            );
+            if ($validator->fails()) {
+                return json_response([
+                    'status'      => 'error',
+                    'explanation' => $validator->errors()
+                ], 400);
+            }
+
+            //$data = base
+
+
+            Mail
+                ::to(Input::get('email.to'))
+                ->queue(new PdfMail(
+                    Input::get('email.from'),
+                    Input::get('email.subject'),
+                    Input::get('email.body'),
+                    Input::get('pdf_file_name'),
+                    base64_encode($pdfData)));
         } else {
-            // Открыть в браузере
-            $pdf->send();
+            if ($pdfFileName) {
+                // Скачать
+                header('Access-Control-Allow-Headers: Content-Type, X-Auth-Token, Origin, Accept, Authorization, X-Request, X-Requested-With');
+                header('Access-Control-Allow-Origin: *');
+
+                $pdf->send($pdfFileName);
+            } else {
+                // Открыть в браузере
+                $pdf->send();
+            }
+
+
+            return json_response(['status' => 'ok']);
         }
-
-
-        return \Response::json([
-            'status' => 'ok'
-        ], 200, [
-//            'Access-Control-Allow-Origin'      => '*',
-//            'Access-Control-Allow-Credentials' => 'true',
-        ], JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES);
-
-
-        // пример вызова
-        // $pdfData = $this->generatePdf();
-
-
     }
 
     public function isSecureDomain($uri)

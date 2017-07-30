@@ -1,7 +1,6 @@
 <?php
 
 use Illuminate\Http\Request;
-use \App\Http\Middleware\CORS;
 
 /*
 |--------------------------------------------------------------------------
@@ -14,17 +13,15 @@ use \App\Http\Middleware\CORS;
 |
 */
 
-/*
-Route::get('/user', function (Request $request) {
-    return $request->user();
-})->middleware('auth:api');
-*/
+//Route::middleware('auth:api')->get('/user', function (Request $request) {
+//    return $request->user();
+//});
 
 
 
-Route::group(['middleware' => ['cors']], function () {
+//Route::group(['middleware' => ['cors']], function () {
     Route::any('uri-to-pdf', [
         'as'   => 'uri-to-pdf',
         'uses' => 'UriToPdf@getPdf'
     ]);
-});
+//});
