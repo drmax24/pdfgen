@@ -4,8 +4,8 @@ namespace App\Http\Controllers;
 use App\Mail\PdfMail;
 use Illuminate\Support\Facades\Input;
 use Illuminate\Support\Facades\Mail;
+use Illuminate\Support\Facades\Response;
 use mikehaertl\wkhtmlto\Pdf;
-
 
 class UriToPdf extends Controller
 {
@@ -30,13 +30,13 @@ class UriToPdf extends Controller
         $pdfFileName = '';
 
         if (!Input::has('target_uri')) {
-            return \Response::json([
+            return Response::json([
                 'status' => 'Укажите параметр target_url'
             ], 400, [], JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES);
         }
 
         if (!$this->isSecureDomain(Input::get('target_uri'))) {
-            return \Response::json([
+            return Response::json([
                 'status' => 'Forbiddent target: ' . Input::get('target_uri')
             ], 404, [], JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES);
         }
@@ -99,10 +99,10 @@ class UriToPdf extends Controller
                 ]
             );
             if ($validator->fails()) {
-                return json_response([
-                    'status'      => 'error',
-                    'explanation' => $validator->errors()
-                ], 400);
+                return Response::json(['status' => 'error', 'explanation' => $validator->errors()],
+                    $status = 400,
+                    ['Content-Type' => 'application/json; charset=UTF-8'],
+                    JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES);
             }
 
             //$data = base
@@ -130,7 +130,12 @@ class UriToPdf extends Controller
             }
         }
 
-        return json_response(['status' => 'ok']);
+        return Response::json(['status' => 'ok'],
+            $status = 200,
+            ['Content-Type' => 'application/json; charset=UTF-8'],
+            JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES);
+
+        //json_response(['status' => 'ok']);
     }
 
     public function isSecureDomain($uri)
