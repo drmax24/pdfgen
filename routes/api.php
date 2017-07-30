@@ -19,9 +19,9 @@ use Illuminate\Http\Request;
 
 
 
-//Route::group(['middleware' => ['cors']], function () {
+Route::group(['middleware' => ['cors']], function () {
     Route::any('uri-to-pdf', [
         'as'   => 'uri-to-pdf',
         'uses' => 'UriToPdf@getPdf'
     ]);
-//});
+});
