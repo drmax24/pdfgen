@@ -123,14 +123,14 @@ class UriToPdf extends Controller
                 header('Access-Control-Allow-Origin: *');
 
                 $pdf->send($pdfFileName);
+                exit;
             } else {
                 // Открыть в браузере
                 $pdf->send();
             }
-
-
-            return json_response(['status' => 'ok']);
         }
+
+        return json_response(['status' => 'ok']);
     }
 
     public function isSecureDomain($uri)
