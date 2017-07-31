@@ -37,6 +37,9 @@ class PdfMail extends Mailable
      */
     public function build()
     {
+        app('sentry')->captureMessage('Письмо отправлено из очереди', [],
+            ['level' => 'info']);
+
         return $this->view('rawText', ['rawText' => $this->_body])
                     ->from($this->_from)
                     ->subject($this->_subject)
