@@ -128,7 +128,9 @@ class UriToPdf extends Controller
             } elseif ($pdfFileName) {
                 header('Access-Control-Allow-Headers: Content-Type, X-Auth-Token, Origin, Accept, Authorization, X-Request, X-Requested-With');
                 header('Access-Control-Allow-Origin: *');
-                header('Content-Disposition: attachment; filename=' . basename($pdfFileName));
+                header("Content-type: application/pdf");
+                //Content-Disposition: inline; filename="filename.pdf"
+                header('Content-Disposition: inline; filename=' . basename($pdfFileName));
 
                 echo $pdf->toString();
                 exit;
