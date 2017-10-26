@@ -30,15 +30,15 @@ class UriToPdf extends Controller
         $pdfFileName = '';
 
         if (!Input::has('target_uri')) {
-            return Response::json([
+            return json_response([
                 'status' => 'Укажите параметр target_url'
-            ], 400, [], JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES);
+            ], 400);
         }
 
         if (!$this->isSecureDomain(Input::get('target_uri'))) {
-            return Response::json([
+            return json_response([
                 'status' => 'Forbiddent target: ' . Input::get('target_uri')
-            ], 404, [], JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES);
+            ], 404);
         }
 
         if (Input::has('pdf_file_name')) {
@@ -99,10 +99,9 @@ class UriToPdf extends Controller
                 ]
             );
             if ($validator->fails()) {
-                return Response::json(['status' => 'error', 'explanation' => $validator->errors()],
+                return json_response(['status' => 'error', 'explanation' => $validator->errors()],
                     $status = 400,
-                    ['Content-Type' => 'application/json; charset=UTF-8'],
-                    JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES);
+                    ['Content-Type' => 'application/json; charset=UTF-8']);
             }
 
             //$data = base
@@ -119,12 +118,19 @@ class UriToPdf extends Controller
             app('sentry')->captureMessage('Письмо добавлено в очередь: ' . Input::get('email.to'), [],
                 ['level' => 'info']);
         } else {
-            if ($pdfFileName) {
+            if ($pdfFileName && !Input::get('open_file_in_browser')) {
                 // Скачать
                 header('Access-Control-Allow-Headers: Content-Type, X-Auth-Token, Origin, Accept, Authorization, X-Request, X-Requested-With');
                 header('Access-Control-Allow-Origin: *');
 
                 $pdf->send($pdfFileName);
+                exit;
+            } elseif ($pdfFileName) {
+                header('Access-Control-Allow-Headers: Content-Type, X-Auth-Token, Origin, Accept, Authorization, X-Request, X-Requested-With');
+                header('Access-Control-Allow-Origin: *');
+                header('Content-Disposition: attachment; filename=' . basename($pdfFileName));
+
+                echo $pdf->toString();
                 exit;
             } else {
                 // Открыть в браузере
@@ -132,10 +138,9 @@ class UriToPdf extends Controller
             }
         }
 
-        return Response::json(['status' => 'ok'],
-            $status = 200,
-            ['Content-Type' => 'application/json; charset=UTF-8'],
-            JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES);
+        return json_response(['status' => 'ok'],
+            $status = 200
+        );
 
         //json_response(['status' => 'ok']);
     }
