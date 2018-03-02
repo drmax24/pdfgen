@@ -29,9 +29,11 @@ class UriToPdf extends Controller
     {
         $pdfFileName = '';
 
+
+
         if (!Input::has('target_uri')) {
             return json_response([
-                'status' => 'Укажите параметр target_url'
+                'status' => 'Укажите параметр target_uri'
             ], 400);
         }
 
@@ -79,6 +81,7 @@ class UriToPdf extends Controller
         $pdf->addPage($uri);
         //$pdf->addPage('https://pages.lexus.ru/locator/');
 
+
         $pdfData = $pdf->toString();
         if ($pdfData) {
             //MaintenanceCartSession::firstOrCreate(['pdf_data' => $pdfData]);
@@ -86,6 +89,8 @@ class UriToPdf extends Controller
         } else {
             echo $pdf->getError();
         }
+
+
 
         if (Input::get('email.to')) {
 
@@ -120,15 +125,15 @@ class UriToPdf extends Controller
         } else {
             if ($pdfFileName && !Input::get('open_file_in_browser')) {
                 // Скачать
-                header('Access-Control-Allow-Headers: Content-Type, X-Auth-Token, Origin, Accept, Authorization, X-Request, X-Requested-With');
-                header('Access-Control-Allow-Origin: *');
+                //header('Access-Control-Allow-Headers: Content-Type, X-Auth-Token, Origin, Accept, Authorization, X-Request, X-Requested-With');
+                //header('Access-Control-Allow-Origin: *');
 
                 $pdf->send($pdfFileName);
                 exit;
             } elseif ($pdfFileName) {
-                header('Access-Control-Allow-Headers: Content-Type, X-Auth-Token, Origin, Accept, Authorization, X-Request, X-Requested-With');
-                header('Access-Control-Allow-Origin: *');
-                header("Content-type: application/pdf");
+                //header('Access-Control-Allow-Headers: Content-Type, X-Auth-Token, Origin, Accept, Authorization, X-Request, X-Requested-With');
+                //header('Access-Control-Allow-Origin: *');
+                //header("Content-type: application/pdf");
                 //Content-Disposition: inline; filename="filename.pdf"
                 header('Content-Disposition: inline; filename=' . basename($pdfFileName));
 

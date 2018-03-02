@@ -33,14 +33,16 @@ class CORS
         }
 
         $response->headers->set('Access-Control-Allow-Headers',
-            'Content-Type, X-Auth-Token, Origin, Accept, Authorization, X-Request, X-Requested-Wit');
+            'content-type, X-Requested-With, X-Auth-Token, Origin, Accept, Authorization, X-Request');
         $response->headers->set('Access-Control-Allow-Credentials', 'true');
         $response->headers->set('X-Content-Type-Options', 'nosniff');
 
+        $response->headers->set('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, OPTIONS');
+
         // Set the allowed methods for the specific uri if the request method is OPTION
-        if ($request->isMethod('options')) {
-            $response->headers->set('Access-Control-Allow-Methods', $response->headers->get('Allow'));
-        }
+        //if ($request->isMethod('options')) {
+        //    $response->headers->set('Access-Control-Allow-Methods', $response->headers->get('Allow'));
+        //}
 
         return $response;
     }
