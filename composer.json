@@ -9,7 +9,7 @@
         "bstd/laravel-helpers": "dev-master",
         "laravel/framework": "5.4.*",
         "laravel/tinker": "~1.0",
-        "mikehaertl/phpwkhtmltopdf": "2.2.*",
+        "mikehaertl/phpwkhtmltopdf": "2.3.*",
         "predis/predis": "~1.0",
         "sentry/sentry-laravel": "0.6.*"
     },
