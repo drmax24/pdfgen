@@ -97,17 +97,21 @@ class UriToPdf extends Controller
             $validator = \Validator::make(
                 Input::all(), [
                     'email.from'    => 'required|email',
-                    'email.to'      => 'required|email',
+                    'email.to'      => 'required',
                     'email.subject' => 'required',
                     'email.body'    => 'required',
                     'pdf_file_name' => 'required',
                 ]
             );
+
+
             if ($validator->fails()) {
                 return json_response(['status' => 'error', 'explanation' => $validator->errors()],
                     $status = 400,
                     ['Content-Type' => 'application/json; charset=UTF-8']);
             }
+
+
 
             //$data = base
 
