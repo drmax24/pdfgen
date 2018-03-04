@@ -124,7 +124,7 @@ class UriToPdf extends Controller
                     Input::get('email.body'),
                     Input::get('pdf_file_name'),
                     base64_encode($pdfData)));
-            app('sentry')->captureMessage(Input::get('email.to'), [],
+            app('sentry')->captureMessage('Письмо добавлено в очередь: ' . print_r(Input::get('email.to'), true), [],
                 ['level' => 'info']);
         } else {
             if ($pdfFileName && !Input::get('open_file_in_browser')) {
