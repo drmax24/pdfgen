@@ -147,11 +147,8 @@ class UriToPdf extends Controller
             }
         }
 
-        return json_response(['status' => 'ok'],
-            $status = 200
-        );
+        return json_response(['status' => 'ok']);
 
-        //json_response(['status' => 'ok']);
     }
 
     public function isSecureDomain($uri)
