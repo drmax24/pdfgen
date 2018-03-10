@@ -151,6 +151,7 @@ class UriToPdf extends Controller
             } else {
                 // Открыть в браузере без указания имени файла
                 $pdf->send();
+                exit;
             }
         }
 
