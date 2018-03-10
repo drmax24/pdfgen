@@ -114,9 +114,6 @@ class UriToPdf extends Controller
 
 
 
-            //$data = base
-
-
             Mail
                 ::to(Input::get('email.to'))
                 ->queue(new PdfMail(
