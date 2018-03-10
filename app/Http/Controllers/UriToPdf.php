@@ -128,20 +128,21 @@ class UriToPdf extends Controller
             app('sentry')->captureMessage('Письмо добавлено в очередь: ' . print_r(Input::get('email.to'), true), [],
                 ['level' => 'info']);
         } else {
-            if ($pdfFileName && !Input::get('open_file_in_browser')) {
-                // Скачать
-
-                $pdf->send($pdfFileName);
-                exit;
-            } elseif ($pdfFileName) {
-                //header("Content-type: application/pdf");
+            if ($pdfFileName && Input::get('open_file_in_browser')) {
+                header("Content-type: application/pdf");
                 //Content-Disposition: inline; filename="filename.pdf"
                 header('Content-Disposition: inline; filename=' . basename($pdfFileName));
 
                 echo $pdf->toString();
                 exit;
+
+            } elseif ($pdfFileName) {
+                // Открыть в браузере с указанием имени файла
+
+                $pdf->send($pdfFileName);
+                exit;
             } else {
-                // Открыть в браузере
+                // Открыть в браузере без указания имени файла
                 $pdf->send();
             }
         }
