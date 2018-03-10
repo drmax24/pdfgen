@@ -126,12 +126,15 @@ class UriToPdf extends Controller
                 ['level' => 'info']);
         } else {
             if ($pdfFileName && Input::get('open_file_in_browser')) {
+                $pdf->send($pdfFileName, true);
+                exit;
                 //$contents = View::make('embedded')->with('foo', $foo);
+                /*
                 $response = Response::make($pdf->toString(), 200);
                 $response->header('Content-Type', 'application/pdf');
                 $response->header('Content-Disposition', 'inline; filename=' . basename($pdfFileName));
                 return $response;
-
+*/
 /*
                 header("Content-type: application/pdf");
                 //Content-Disposition: inline; filename="filename.pdf"
@@ -140,7 +143,6 @@ class UriToPdf extends Controller
                 echo $pdf->toString();
                 exit;
 */
-
             } elseif ($pdfFileName) {
                 // Открыть в браузере с указанием имени файла
 
