@@ -2,6 +2,7 @@
 namespace App\Http\Controllers;
 
 use App\Mail\PdfMail;
+use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Input;
 use Illuminate\Support\Facades\Mail;
 use mikehaertl\wkhtmlto\Pdf;
@@ -125,12 +126,20 @@ class UriToPdf extends Controller
                 ['level' => 'info']);
         } else {
             if ($pdfFileName && Input::get('open_file_in_browser')) {
+                //$contents = View::make('embedded')->with('foo', $foo);
+                $response = Response::make($pdf->toString(), 200);
+                $response->header('Content-Type', 'application/pdf');
+                $response->header('Content-Disposition', 'inline; filename=' . basename($pdfFileName));
+                return $response;
+
+/*
                 header("Content-type: application/pdf");
                 //Content-Disposition: inline; filename="filename.pdf"
                 header('Content-Disposition: inline; filename=' . basename($pdfFileName));
 
                 echo $pdf->toString();
                 exit;
+*/
 
             } elseif ($pdfFileName) {
                 // Открыть в браузере с указанием имени файла
