@@ -4,7 +4,6 @@ namespace App\Http\Controllers;
 use App\Mail\PdfMail;
 use Illuminate\Support\Facades\Input;
 use Illuminate\Support\Facades\Mail;
-use Illuminate\Support\Facades\Response;
 use mikehaertl\wkhtmlto\Pdf;
 
 class UriToPdf extends Controller
