@@ -130,14 +130,10 @@ class UriToPdf extends Controller
         } else {
             if ($pdfFileName && !Input::get('open_file_in_browser')) {
                 // Скачать
-                //header('Access-Control-Allow-Headers: Content-Type, X-Auth-Token, Origin, Accept, Authorization, X-Request, X-Requested-With');
-                //header('Access-Control-Allow-Origin: *');
 
                 $pdf->send($pdfFileName);
                 exit;
             } elseif ($pdfFileName) {
-                //header('Access-Control-Allow-Headers: Content-Type, X-Auth-Token, Origin, Accept, Authorization, X-Request, X-Requested-With');
-                //header('Access-Control-Allow-Origin: *');
                 //header("Content-type: application/pdf");
                 //Content-Disposition: inline; filename="filename.pdf"
                 header('Content-Disposition: inline; filename=' . basename($pdfFileName));
