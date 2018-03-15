@@ -26,23 +26,22 @@ class CORS
         $response = $next($request);
 
         // Set the default headers for cors If you only want this for OPTION method put this in the if below
-        if (!empty($_SERVER['HTTP_ORIGIN'])) {
+        if (@$_SERVER['HTTP_ORIGIN']) {
             $response->headers->set('Access-Control-Allow-Origin', $_SERVER['HTTP_ORIGIN']);
         } else {
             $response->headers->set('Access-Control-Allow-Origin', '*');
         }
 
         $response->headers->set('Access-Control-Allow-Headers',
-            'content-type, X-Requested-With, X-Auth-Token, Origin, Accept, Authorization, X-Request');
+            'Content-Type, X-Auth-Token, Origin, Accept, Authorization, X-Request, X-Requested-With, Cache-Control');
+        //$response->headers->set('Access-Control-Allow-Headers', 'Content-Type', 'X-Auth-Token', 'Origin', 'Accept', 'Authorization', 'X-Request', 'X-Requested-With');
         $response->headers->set('Access-Control-Allow-Credentials', 'true');
         $response->headers->set('X-Content-Type-Options', 'nosniff');
 
-        $response->headers->set('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, OPTIONS');
-
         // Set the allowed methods for the specific uri if the request method is OPTION
-        //if ($request->isMethod('options')) {
-        //    $response->headers->set('Access-Control-Allow-Methods', $response->headers->get('Allow'));
-        //}
+        if ($request->isMethod('options')) {
+            $response->headers->set('Access-Control-Allow-Methods', $response->headers->get('Allow'));
+        }
 
         return $response;
     }
