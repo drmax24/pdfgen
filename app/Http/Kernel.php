@@ -15,7 +15,7 @@ class Kernel extends HttpKernel
      */
     protected $middleware = [
 
-        \App\Http\Middleware\CORS::class,
+        //\App\Http\Middleware\CORS::class,
         //\Barryvdh\Cors\HandleCors::class,
         \Illuminate\Foundation\Http\Middleware\CheckForMaintenanceMode::class,
         \Illuminate\Foundation\Http\Middleware\ValidatePostSize::class,
@@ -59,6 +59,6 @@ class Kernel extends HttpKernel
         'can'        => \Illuminate\Auth\Middleware\Authorize::class,
         'guest'      => \App\Http\Middleware\RedirectIfAuthenticated::class,
         'throttle'   => \Illuminate\Routing\Middleware\ThrottleRequests::class,
-        //'cors'       => \App\Http\Middleware\CORS::class
+        'cors'       => \App\Http\Middleware\CORS::class
     ];
 }

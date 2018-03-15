@@ -15,8 +15,9 @@
 //    return $request->user();
 //});
 
-
-Route::any('uri-to-pdf', [
-    'as' => 'uri-to-pdf',
-    'uses' => 'UriToPdf@getPdf'
-]);
+Route::group(array('middleware' => ['cors']), function () {
+    Route::any('uri-to-pdf', [
+        'as' => 'uri-to-pdf',
+        'uses' => 'UriToPdf@getPdf'
+    ]);
+});
