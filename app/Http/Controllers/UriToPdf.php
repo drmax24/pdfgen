@@ -63,25 +63,21 @@ class UriToPdf extends Controller
 
 
         $pdfConfig = $this->initPdfConfig($input);
-
         $pdf = new Pdf($pdfConfig);
-        //$pdf->getInternalGenerator()->setTimeout(30);
 
 
+        // Строим гет-запрос на страницу снимок которой будем делать
         unset($input['target_url'], $input['wkhtmltopdf-params']);
         unset($input['email']);
         $query = http_build_query($input);
         $uri = $targetUri . '?' . $query;
 
-
         $pdf->addPage($uri);
-        //$pdf->addPage('https://pages.lexus.ru/locator/');
 
-
+        // сохраняем пдф-файл в переменную
         $pdfData = $pdf->toString();
         if ($pdfData) {
-            //MaintenanceCartSession::firstOrCreate(['pdf_data' => $pdfData]);
-            //saveAs(storage_path('/maintenance/pdf/Расчет ТО.pdf'))) {
+
         } else {
             echo $pdf->getError();
         }
