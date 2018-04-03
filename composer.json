@@ -6,7 +6,6 @@
     "type": "project",
     "require": {
         "php": ">=5.6.4",
-        "barryvdh/laravel-cors": "^0.11.0",
         "bstd/laravel-helpers": "dev-master",
         "laravel/framework": "5.4.*",
         "laravel/tinker": "~1.0",
