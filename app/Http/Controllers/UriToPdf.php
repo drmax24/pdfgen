@@ -69,6 +69,7 @@ class UriToPdf extends Controller
 
 
         unset($input['target_url'], $input['wkhtmltopdf-params']);
+        unset($input['email']);
         $query = http_build_query($input);
         $uri = $targetUri . '?' . $query;
 
