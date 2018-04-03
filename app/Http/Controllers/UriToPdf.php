@@ -174,6 +174,8 @@ class UriToPdf extends Controller
                 $params[$k] = $v;
             }
         }
+
+        return $wkhtmltopdfParams;
     }
 
 
