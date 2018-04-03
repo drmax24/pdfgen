@@ -4,8 +4,121 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "e6aeb722613be92dd0b35f7f823b259b",
+    "content-hash": "19162a0d6b63840fb544c7916f58e0b5",
     "packages": [
+        {
+            "name": "asm89/stack-cors",
+            "version": "1.2.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/asm89/stack-cors.git",
+                "reference": "c163e2b614550aedcf71165db2473d936abbced6"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/asm89/stack-cors/zipball/c163e2b614550aedcf71165db2473d936abbced6",
+                "reference": "c163e2b614550aedcf71165db2473d936abbced6",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.5.9",
+                "symfony/http-foundation": "~2.7|~3.0|~4.0",
+                "symfony/http-kernel": "~2.7|~3.0|~4.0"
+            },
+            "require-dev": {
+                "phpunit/phpunit": "^5.0 || ^4.8.10",
+                "squizlabs/php_codesniffer": "^2.3"
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "1.2-dev"
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Asm89\\Stack\\": "src/Asm89/Stack/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Alexander",
+                    "email": "iam.asm89@gmail.com"
+                }
+            ],
+            "description": "Cross-origin resource sharing library and stack middleware",
+            "homepage": "https://github.com/asm89/stack-cors",
+            "keywords": [
+                "cors",
+                "stack"
+            ],
+            "time": "2017-12-20T14:37:45+00:00"
+        },
+        {
+            "name": "barryvdh/laravel-cors",
+            "version": "v0.11.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/barryvdh/laravel-cors.git",
+                "reference": "6ba64a654b4258a3ecc11aba6614c932b3442e30"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/barryvdh/laravel-cors/zipball/6ba64a654b4258a3ecc11aba6614c932b3442e30",
+                "reference": "6ba64a654b4258a3ecc11aba6614c932b3442e30",
+                "shasum": ""
+            },
+            "require": {
+                "asm89/stack-cors": "^1.2",
+                "illuminate/support": "5.3.x|5.4.x|5.5.x|5.6.x",
+                "php": ">=5.5.9",
+                "symfony/http-foundation": "^3.1|^4",
+                "symfony/http-kernel": "^3.1|^4"
+            },
+            "require-dev": {
+                "orchestra/testbench": "3.x",
+                "phpunit/phpunit": "^4.8|^5.2",
+                "squizlabs/php_codesniffer": "^2.3"
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "0.11-dev"
+                },
+                "laravel": {
+                    "providers": [
+                        "Barryvdh\\Cors\\ServiceProvider"
+                    ]
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Barryvdh\\Cors\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Barry vd. Heuvel",
+                    "email": "barryvdh@gmail.com"
+                }
+            ],
+            "description": "Adds CORS (Cross-Origin Resource Sharing) headers support in your Laravel application",
+            "keywords": [
+                "api",
+                "cors",
+                "crossdomain",
+                "laravel"
+            ],
+            "time": "2018-01-04T06:59:27+00:00"
+        },
         {
             "name": "bstd/laravel-helpers",
             "version": "dev-master",
@@ -136,6 +249,7 @@
         },
         {
             "name": "erusev/parsedown",
+<<<<<<< HEAD
             "version": "1.7.1",
             "source": {
                 "type": "git",
@@ -146,6 +260,18 @@
                 "type": "zip",
                 "url": "https://api.github.com/repos/erusev/parsedown/zipball/92e9c27ba0e74b8b028b111d1b6f956a15c01fc1",
                 "reference": "92e9c27ba0e74b8b028b111d1b6f956a15c01fc1",
+=======
+            "version": "1.7.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/erusev/parsedown.git",
+                "reference": "6678d59be48c4be64eaca6ce70bea48a09488cc2"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/erusev/parsedown/zipball/6678d59be48c4be64eaca6ce70bea48a09488cc2",
+                "reference": "6678d59be48c4be64eaca6ce70bea48a09488cc2",
+>>>>>>> baf0ee6ee67dc9271ea73aee2fe2217899a26089
                 "shasum": ""
             },
             "require": {
@@ -178,7 +304,11 @@
                 "markdown",
                 "parser"
             ],
+<<<<<<< HEAD
             "time": "2018-03-08T01:11:30+00:00"
+=======
+            "time": "2018-02-28T11:41:37+00:00"
+>>>>>>> baf0ee6ee67dc9271ea73aee2fe2217899a26089
         },
         {
             "name": "jakub-onderka/php-console-color",
@@ -398,6 +528,7 @@
         },
         {
             "name": "laravel/tinker",
+<<<<<<< HEAD
             "version": "v1.0.5",
             "source": {
                 "type": "git",
@@ -408,6 +539,18 @@
                 "type": "zip",
                 "url": "https://api.github.com/repos/laravel/tinker/zipball/94f6daf2131508cebd11cd6f8632ba586d7ecc41",
                 "reference": "94f6daf2131508cebd11cd6f8632ba586d7ecc41",
+=======
+            "version": "v1.0.3",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/laravel/tinker.git",
+                "reference": "852c2abe0b0991555a403f1c0583e64de6acb4a6"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/laravel/tinker/zipball/852c2abe0b0991555a403f1c0583e64de6acb4a6",
+                "reference": "852c2abe0b0991555a403f1c0583e64de6acb4a6",
+>>>>>>> baf0ee6ee67dc9271ea73aee2fe2217899a26089
                 "shasum": ""
             },
             "require": {
@@ -457,7 +600,11 @@
                 "laravel",
                 "psysh"
             ],
+<<<<<<< HEAD
             "time": "2018-03-06T17:34:36+00:00"
+=======
+            "time": "2017-12-18T16:25:11+00:00"
+>>>>>>> baf0ee6ee67dc9271ea73aee2fe2217899a26089
         },
         {
             "name": "league/flysystem",
@@ -617,16 +764,16 @@
         },
         {
             "name": "mikehaertl/phpwkhtmltopdf",
-            "version": "2.2.2",
+            "version": "2.3.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/mikehaertl/phpwkhtmltopdf.git",
-                "reference": "dccea43bda7a0096c2be1a5a2a2f6188e3a70a99"
+                "reference": "45974cc1f0b99a8200aeedac6b692934a8a592cd"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/mikehaertl/phpwkhtmltopdf/zipball/dccea43bda7a0096c2be1a5a2a2f6188e3a70a99",
-                "reference": "dccea43bda7a0096c2be1a5a2a2f6188e3a70a99",
+                "url": "https://api.github.com/repos/mikehaertl/phpwkhtmltopdf/zipball/45974cc1f0b99a8200aeedac6b692934a8a592cd",
+                "reference": "45974cc1f0b99a8200aeedac6b692934a8a592cd",
                 "shasum": ""
             },
             "require": {
@@ -662,7 +809,7 @@
                 "wkhtmltoimage",
                 "wkhtmltopdf"
             ],
-            "time": "2017-07-22T07:25:06+00:00"
+            "time": "2018-02-18T10:54:00+00:00"
         },
         {
             "name": "monolog/monolog",
@@ -788,6 +935,7 @@
         },
         {
             "name": "nesbot/carbon",
+<<<<<<< HEAD
             "version": "1.25.0",
             "source": {
                 "type": "git",
@@ -802,6 +950,22 @@
             },
             "require": {
                 "php": ">=5.3.9",
+=======
+            "version": "1.23.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/briannesbitt/Carbon.git",
+                "reference": "4a874a39b2b00d7e0146cd46fab6f47c41ce9e65"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/briannesbitt/Carbon/zipball/4a874a39b2b00d7e0146cd46fab6f47c41ce9e65",
+                "reference": "4a874a39b2b00d7e0146cd46fab6f47c41ce9e65",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.3.0",
+>>>>>>> baf0ee6ee67dc9271ea73aee2fe2217899a26089
                 "symfony/translation": "~2.6 || ~3.0 || ~4.0"
             },
             "require-dev": {
@@ -837,7 +1001,11 @@
                 "datetime",
                 "time"
             ],
+<<<<<<< HEAD
             "time": "2018-03-19T15:50:49+00:00"
+=======
+            "time": "2018-02-28T09:22:05+00:00"
+>>>>>>> baf0ee6ee67dc9271ea73aee2fe2217899a26089
         },
         {
             "name": "nikic/php-parser",
@@ -937,6 +1105,59 @@
                 "random"
             ],
             "time": "2017-09-27T21:40:39+00:00"
+<<<<<<< HEAD
+=======
+        },
+        {
+            "name": "predis/predis",
+            "version": "v1.1.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/nrk/predis.git",
+                "reference": "f0210e38881631afeafb56ab43405a92cafd9fd1"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/nrk/predis/zipball/f0210e38881631afeafb56ab43405a92cafd9fd1",
+                "reference": "f0210e38881631afeafb56ab43405a92cafd9fd1",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.3.9"
+            },
+            "require-dev": {
+                "phpunit/phpunit": "~4.8"
+            },
+            "suggest": {
+                "ext-curl": "Allows access to Webdis when paired with phpiredis",
+                "ext-phpiredis": "Allows faster serialization and deserialization of the Redis protocol"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Predis\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Daniele Alessandri",
+                    "email": "suppakilla@gmail.com",
+                    "homepage": "http://clorophilla.net"
+                }
+            ],
+            "description": "Flexible and feature-complete Redis client for PHP and HHVM",
+            "homepage": "http://github.com/nrk/predis",
+            "keywords": [
+                "nosql",
+                "predis",
+                "redis"
+            ],
+            "time": "2016-06-16T16:22:20+00:00"
+>>>>>>> baf0ee6ee67dc9271ea73aee2fe2217899a26089
         },
         {
             "name": "psr/log",
@@ -987,6 +1208,7 @@
         },
         {
             "name": "psy/psysh",
+<<<<<<< HEAD
             "version": "v0.8.18",
             "source": {
                 "type": "git",
@@ -997,6 +1219,18 @@
                 "type": "zip",
                 "url": "https://api.github.com/repos/bobthecow/psysh/zipball/5357b1cffc8fb375d6a9e3c86d5c82dd38a40834",
                 "reference": "5357b1cffc8fb375d6a9e3c86d5c82dd38a40834",
+=======
+            "version": "v0.8.17",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/bobthecow/psysh.git",
+                "reference": "5069b70e8c4ea492c2b5939b6eddc78bfe41cfec"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/bobthecow/psysh/zipball/5069b70e8c4ea492c2b5939b6eddc78bfe41cfec",
+                "reference": "5069b70e8c4ea492c2b5939b6eddc78bfe41cfec",
+>>>>>>> baf0ee6ee67dc9271ea73aee2fe2217899a26089
                 "shasum": ""
             },
             "require": {
@@ -1055,7 +1289,11 @@
                 "interactive",
                 "shell"
             ],
+<<<<<<< HEAD
             "time": "2018-04-02T05:41:44+00:00"
+=======
+            "time": "2017-12-28T16:14:16+00:00"
+>>>>>>> baf0ee6ee67dc9271ea73aee2fe2217899a26089
         },
         {
             "name": "ramsey/uuid",
@@ -1139,6 +1377,7 @@
         },
         {
             "name": "sentry/sentry",
+<<<<<<< HEAD
             "version": "1.8.4",
             "source": {
                 "type": "git",
@@ -1149,6 +1388,18 @@
                 "type": "zip",
                 "url": "https://api.github.com/repos/getsentry/sentry-php/zipball/643ec20d181ca55317d4ccda6ad658b9a8b4f06a",
                 "reference": "643ec20d181ca55317d4ccda6ad658b9a8b4f06a",
+=======
+            "version": "1.8.3",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/getsentry/sentry-php.git",
+                "reference": "512661046e403dc5eb5ae192d5a6cda10e068a95"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/getsentry/sentry-php/zipball/512661046e403dc5eb5ae192d5a6cda10e068a95",
+                "reference": "512661046e403dc5eb5ae192d5a6cda10e068a95",
+>>>>>>> baf0ee6ee67dc9271ea73aee2fe2217899a26089
                 "shasum": ""
             },
             "require": {
@@ -1199,26 +1450,30 @@
                 "log",
                 "logging"
             ],
+<<<<<<< HEAD
             "time": "2018-03-20T12:52:10+00:00"
+=======
+            "time": "2018-02-07T11:26:52+00:00"
+>>>>>>> baf0ee6ee67dc9271ea73aee2fe2217899a26089
         },
         {
             "name": "sentry/sentry-laravel",
-            "version": "0.4.1",
+            "version": "0.6.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/getsentry/sentry-laravel.git",
-                "reference": "34e4f5d800ce8db087272df4e244bdf565fce4e1"
+                "reference": "21ea11e02da7a6ea344d4e69d1955d2624a00faa"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/getsentry/sentry-laravel/zipball/34e4f5d800ce8db087272df4e244bdf565fce4e1",
-                "reference": "34e4f5d800ce8db087272df4e244bdf565fce4e1",
+                "url": "https://api.github.com/repos/getsentry/sentry-laravel/zipball/21ea11e02da7a6ea344d4e69d1955d2624a00faa",
+                "reference": "21ea11e02da7a6ea344d4e69d1955d2624a00faa",
                 "shasum": ""
             },
             "require": {
                 "illuminate/support": "4.*|5.*",
                 "php": ">=5.2.4",
-                "sentry/sentry": ">=1.5.0"
+                "sentry/sentry": ">=1.6.0"
             },
             "require-dev": {
                 "friendsofphp/php-cs-fixer": "^1.8.0",
@@ -1227,7 +1482,7 @@
             "type": "library",
             "extra": {
                 "branch-alias": {
-                    "dev-master": "0.4.x-dev"
+                    "dev-master": "0.6.x-dev"
                 }
             },
             "autoload": {
@@ -1245,15 +1500,15 @@
                     "email": "dcramer@gmail.com"
                 }
             ],
-            "description": "Laravel integration for Sentry (http://getsentry.com)",
-            "homepage": "http://getsentry.com",
+            "description": "Laravel integration for Sentry (https://sentry.io)",
+            "homepage": "https://sentry.io",
             "keywords": [
                 "errors",
                 "laravel",
                 "logging",
                 "sentry"
             ],
-            "time": "2016-09-30T07:13:57+00:00"
+            "time": "2017-02-09T17:35:04+00:00"
         },
         {
             "name": "swiftmailer/swiftmailer",
@@ -1311,7 +1566,11 @@
         },
         {
             "name": "symfony/console",
+<<<<<<< HEAD
             "version": "v3.4.6",
+=======
+            "version": "v3.4.5",
+>>>>>>> baf0ee6ee67dc9271ea73aee2fe2217899a26089
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/console.git",
@@ -1380,7 +1639,11 @@
         },
         {
             "name": "symfony/css-selector",
+<<<<<<< HEAD
             "version": "v4.0.6",
+=======
+            "version": "v4.0.5",
+>>>>>>> baf0ee6ee67dc9271ea73aee2fe2217899a26089
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/css-selector.git",
@@ -1433,7 +1696,11 @@
         },
         {
             "name": "symfony/debug",
+<<<<<<< HEAD
             "version": "v3.4.6",
+=======
+            "version": "v3.4.5",
+>>>>>>> baf0ee6ee67dc9271ea73aee2fe2217899a26089
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/debug.git",
@@ -1489,7 +1756,11 @@
         },
         {
             "name": "symfony/event-dispatcher",
+<<<<<<< HEAD
             "version": "v4.0.6",
+=======
+            "version": "v4.0.5",
+>>>>>>> baf0ee6ee67dc9271ea73aee2fe2217899a26089
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/event-dispatcher.git",
@@ -1552,6 +1823,7 @@
         },
         {
             "name": "symfony/finder",
+<<<<<<< HEAD
             "version": "v3.4.6",
             "source": {
                 "type": "git",
@@ -1562,6 +1834,18 @@
                 "type": "zip",
                 "url": "https://api.github.com/repos/symfony/finder/zipball/a479817ce0a9e4adfd7d39c6407c95d97c254625",
                 "reference": "a479817ce0a9e4adfd7d39c6407c95d97c254625",
+=======
+            "version": "v3.4.5",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/symfony/finder.git",
+                "reference": "6a615613745cef820d807443f32076bb9f5d0a38"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/symfony/finder/zipball/6a615613745cef820d807443f32076bb9f5d0a38",
+                "reference": "6a615613745cef820d807443f32076bb9f5d0a38",
+>>>>>>> baf0ee6ee67dc9271ea73aee2fe2217899a26089
                 "shasum": ""
             },
             "require": {
@@ -1597,11 +1881,19 @@
             ],
             "description": "Symfony Finder Component",
             "homepage": "https://symfony.com",
+<<<<<<< HEAD
             "time": "2018-03-05T18:28:11+00:00"
         },
         {
             "name": "symfony/http-foundation",
             "version": "v3.4.6",
+=======
+            "time": "2018-02-11T17:15:12+00:00"
+        },
+        {
+            "name": "symfony/http-foundation",
+            "version": "v3.4.5",
+>>>>>>> baf0ee6ee67dc9271ea73aee2fe2217899a26089
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/http-foundation.git",
@@ -1655,6 +1947,7 @@
         },
         {
             "name": "symfony/http-kernel",
+<<<<<<< HEAD
             "version": "v3.4.6",
             "source": {
                 "type": "git",
@@ -1665,6 +1958,18 @@
                 "type": "zip",
                 "url": "https://api.github.com/repos/symfony/http-kernel/zipball/a443bbbd93682aa08e623fade4c94edd586ed2de",
                 "reference": "a443bbbd93682aa08e623fade4c94edd586ed2de",
+=======
+            "version": "v3.4.5",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/symfony/http-kernel.git",
+                "reference": "494f950becf513c174f52f9010cedb9026c12a92"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/symfony/http-kernel/zipball/494f950becf513c174f52f9010cedb9026c12a92",
+                "reference": "494f950becf513c174f52f9010cedb9026c12a92",
+>>>>>>> baf0ee6ee67dc9271ea73aee2fe2217899a26089
                 "shasum": ""
             },
             "require": {
@@ -1739,7 +2044,11 @@
             ],
             "description": "Symfony HttpKernel Component",
             "homepage": "https://symfony.com",
+<<<<<<< HEAD
             "time": "2018-03-05T19:41:07+00:00"
+=======
+            "time": "2018-03-01T19:23:56+00:00"
+>>>>>>> baf0ee6ee67dc9271ea73aee2fe2217899a26089
         },
         {
             "name": "symfony/polyfill-mbstring",
@@ -1861,7 +2170,11 @@
         },
         {
             "name": "symfony/process",
+<<<<<<< HEAD
             "version": "v3.4.6",
+=======
+            "version": "v3.4.5",
+>>>>>>> baf0ee6ee67dc9271ea73aee2fe2217899a26089
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/process.git",
@@ -1910,7 +2223,11 @@
         },
         {
             "name": "symfony/routing",
+<<<<<<< HEAD
             "version": "v3.4.6",
+=======
+            "version": "v3.4.5",
+>>>>>>> baf0ee6ee67dc9271ea73aee2fe2217899a26089
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/routing.git",
@@ -1988,7 +2305,11 @@
         },
         {
             "name": "symfony/translation",
+<<<<<<< HEAD
             "version": "v4.0.6",
+=======
+            "version": "v4.0.5",
+>>>>>>> baf0ee6ee67dc9271ea73aee2fe2217899a26089
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/translation.git",
@@ -2056,7 +2377,11 @@
         },
         {
             "name": "symfony/var-dumper",
+<<<<<<< HEAD
             "version": "v3.4.6",
+=======
+            "version": "v3.4.5",
+>>>>>>> baf0ee6ee67dc9271ea73aee2fe2217899a26089
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/var-dumper.git",
@@ -3601,7 +3926,11 @@
         },
         {
             "name": "symfony/yaml",
+<<<<<<< HEAD
             "version": "v4.0.6",
+=======
+            "version": "v4.0.5",
+>>>>>>> baf0ee6ee67dc9271ea73aee2fe2217899a26089
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/yaml.git",

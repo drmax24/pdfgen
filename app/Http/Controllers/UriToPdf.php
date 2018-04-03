@@ -2,10 +2,10 @@
 namespace App\Http\Controllers;
 
 use App\Mail\PdfMail;
+use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Input;
 use Illuminate\Support\Facades\Mail;
 use mikehaertl\wkhtmlto\Pdf;
-
 
 class UriToPdf extends Controller
 {
@@ -32,9 +32,11 @@ class UriToPdf extends Controller
     {
         $pdfFileName = '';
 
+
+
         if (!Input::has('target_uri')) {
             return json_response([
-                'status' => 'Укажите параметр target_url'
+                'status' => 'Укажите параметр target_uri'
             ], 400);
         }
 
@@ -59,6 +61,7 @@ class UriToPdf extends Controller
         $targetUri = $input['target_uri'];
 
 
+
         $pdfConfig = $this->initPdfConfig($input);
 
         $pdf = new Pdf($pdfConfig);
@@ -73,6 +76,7 @@ class UriToPdf extends Controller
         $pdf->addPage($uri);
         //$pdf->addPage('https://pages.lexus.ru/locator/');
 
+
         $pdfData = $pdf->toString();
         if ($pdfData) {
             //MaintenanceCartSession::firstOrCreate(['pdf_data' => $pdfData]);
@@ -81,22 +85,25 @@ class UriToPdf extends Controller
             echo $pdf->getError();
         }
 
+
+
         if (Input::get('email.to')) {
 
             $validator = \Validator::make(
                 Input::all(), [
                     'email.from'    => 'required|email',
-                    'email.to'      => 'required|email',
+                    'email.to'      => 'required',
                     'email.subject' => 'required',
                     'email.body'    => 'required',
                     'pdf_file_name' => 'required',
                 ]
             );
+
+
             if ($validator->fails()) {
-                return json_response([
-                    'status'      => 'error',
-                    'explanation' => $validator->errors()
-                ], 400);
+                return json_response(['status' => 'error', 'explanation' => $validator->errors()],
+                    $status = 400,
+                    ['Content-Type' => 'application/json; charset=UTF-8']);
             }
 
 
@@ -109,21 +116,44 @@ class UriToPdf extends Controller
                     Input::get('email.body'),
                     Input::get('pdf_file_name'),
                     base64_encode($pdfData)));
+            app('sentry')->captureMessage('Письмо добавлено в очередь: ' . print_r(Input::get('email.to'), true), [],
+                ['level' => 'info']);
         } else {
-            if ($pdfFileName) {
-                // Скачать
-                header('Access-Control-Allow-Headers: Content-Type, X-Auth-Token, Origin, Accept, Authorization, X-Request, X-Requested-With');
-                header('Access-Control-Allow-Origin: *');
+            if ($pdfFileName && Input::get('open_file_in_browser')) {
+
+                $pdf->send($pdfFileName, true);
+                exit;
+
+                //$contents = View::make('embedded')->with('foo', $foo);
+
+/*
+                $response = Response::make($pdf->toString(), 200);
+                $response->header('Content-Type', 'application/pdf');
+                $response->header('Content-Disposition', 'inline; filename=' . basename($pdfFileName));
+                return $response;
+*/
+/*
+                header("Content-type: application/pdf");
+                //Content-Disposition: inline; filename="filename.pdf"
+                header('Content-Disposition: inline; filename=' . basename($pdfFileName));
+
+                echo $pdf->toString();
+                exit;
+*/
+            } elseif ($pdfFileName) {
+                // Открыть в браузере с указанием имени файла
 
                 $pdf->send($pdfFileName);
                 exit;
             } else {
-                // Открыть в браузере
+                // Открыть в браузере без указания имени файла
                 $pdf->send();
+                exit;
             }
         }
 
         return json_response(['status' => 'ok']);
+
     }
 
     public function initPdfConfig($input){
