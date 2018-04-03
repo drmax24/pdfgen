@@ -25,26 +25,31 @@ class UriToPdf extends Controller
     }
 
 
+
+
+
     public function getPdf()
     {
         $pdfFileName = '';
 
         if (!Input::has('target_uri')) {
-            return \Response::json([
+            return json_response([
                 'status' => 'Укажите параметр target_url'
-            ], 400, [], JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES);
+            ], 400);
         }
 
         if (!$this->isSecureDomain(Input::get('target_uri'))) {
-            return \Response::json([
+            return json_response([
                 'status' => 'Forbiddent target: ' . Input::get('target_uri')
-            ], 404, [], JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES);
+            ], 404);
         }
 
         if (Input::has('pdf_file_name')) {
             $pdfFileName = Input::get('pdf_file_name');
-            $ext         = strtolower(pathinfo($pdfFileName, PATHINFO_EXTENSION)) !== 'pdf';
-            $pdfFileName .= '.pdf';
+            $ext         = strtolower(pathinfo($pdfFileName, PATHINFO_EXTENSION));
+            if ($ext != 'pdf') {
+                $pdfFileName .= '.pdf';
+            }
         }
 
 
@@ -53,26 +58,15 @@ class UriToPdf extends Controller
         $input     = Input::all();
         $targetUri = $input['target_uri'];
 
-        $wkhtmltopdfParams = @$input['wkhtmltopdf-params'];
-        unset($input['target_url'], $input['wkhtmltopdf-params'], $wkhtmltopdfParams['binary']);
-        $query = http_build_query($input);
 
-        $params = [
-            'binary' => '/usr/local/bin/wkhtmltopdf',
-            //'javascript-delay' => '4000',
-            //'window-status'    => 'ready-to-print'
-        ];
+        $pdfConfig = $this->initPdfConfig($input);
 
-        //http://pdfgen.microservices.local/api/uri-to-pdf?target_uri=http://toyota-tech-service.coding.dev.bstd.ru/index1.html&wkhtmltopdf-params[javascript-delay]=4000
-
-        if ($wkhtmltopdfParams) {
-            foreach ($wkhtmltopdfParams as $k => $v) {
-                $params[$k] = $v;
-            }
-        }
-
-        $pdf = new Pdf($params);
+        $pdf = new Pdf($pdfConfig);
         //$pdf->getInternalGenerator()->setTimeout(30);
+
+
+        unset($input['target_url'], $input['wkhtmltopdf-params']);
+        $query = http_build_query($input);
         $uri = $targetUri . '?' . $query;
 
 
@@ -105,7 +99,6 @@ class UriToPdf extends Controller
                 ], 400);
             }
 
-            //$data = base
 
 
             Mail
@@ -132,6 +125,27 @@ class UriToPdf extends Controller
 
         return json_response(['status' => 'ok']);
     }
+
+    public function initPdfConfig($input){
+        $wkhtmltopdfParams = $input['wkhtmltopdf-params']??null;
+
+        unset($wkhtmltopdfParams['binary']);
+
+        $params = [
+            'binary' => '/usr/local/bin/wkhtmltopdf',
+            //'javascript-delay' => '4000',
+            //'window-status'    => 'ready-to-print'
+        ];
+
+        //http://pdfgen.microservices.local/api/uri-to-pdf?target_uri=http://toyota-tech-service.coding.dev.bstd.ru/index1.html&wkhtmltopdf-params[javascript-delay]=4000
+
+        if ($wkhtmltopdfParams) {
+            foreach ($wkhtmltopdfParams as $k => $v) {
+                $params[$k] = $v;
+            }
+        }
+    }
+
 
     public function isSecureDomain($uri)
     {
