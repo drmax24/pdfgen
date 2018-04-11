@@ -32,18 +32,21 @@ class UriToPdf extends Controller
     public function getPdf()
     {
         $pdfFileName = '';
+        $isBase64 = false;
 
         $qs = Request::getQueryString();
         $qsDecoded = base64_decode($qs);
         if (base64_encode($qsDecoded) === $qs){
             parse_str($qsDecoded,$input);
+            $isBase64 = 1;
         } else {
             $input     = Input::all();
         }
 
         if (!isset($input['target_uri'])) {
             return json_response([
-                'status' => 'Укажите параметр target_uri'
+                'status' => 'Укажите параметр target_uri.',
+                'isBase64' => $isBase64
             ], 400);
         }
 
