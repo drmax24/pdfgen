@@ -5,6 +5,7 @@ use App\Mail\PdfMail;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Input;
 use Illuminate\Support\Facades\Mail;
+use Illuminate\Support\Facades\Request;
 use mikehaertl\wkhtmlto\Pdf;
 
 class UriToPdf extends Controller
@@ -32,7 +33,12 @@ class UriToPdf extends Controller
     {
         $pdfFileName = '';
 
-
+        $qs = Request::getQueryString();
+        $qsDecoded = base64_decode($qs);
+        if (base64_encode($qsDecoded) === $qs){
+            parse_str($qsDecoded,$input);
+            dd($input);
+        }
 
         if (!Input::has('target_uri')) {
             return json_response([
@@ -55,7 +61,7 @@ class UriToPdf extends Controller
         }
 
 
-        parse_url(Input::get('target_uri'));
+        //parse_url(Input::get('target_uri'));
 
         $input     = Input::all();
         $targetUri = $input['target_uri'];
