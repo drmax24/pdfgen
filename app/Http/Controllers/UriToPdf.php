@@ -47,7 +47,8 @@ class UriToPdf extends Controller
             return json_response([
                 'status' => 'Укажите параметр target_uri.',
                 'isBase64' => $isBase64,
-                'input' => $input
+                'input' => $input,
+                'qs' => $qs
             ], 400);
         }
 
