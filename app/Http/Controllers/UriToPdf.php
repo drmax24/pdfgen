@@ -37,7 +37,6 @@ class UriToPdf extends Controller
         $qsDecoded = base64_decode($qs);
         if (base64_encode($qsDecoded) === $qs){
             parse_str($qsDecoded,$input);
-            dd($input);
         } else {
             $input     = Input::all();
         }
