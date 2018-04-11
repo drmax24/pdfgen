@@ -50,7 +50,7 @@ class UriToPdf extends Controller
 
         if (!$this->isSecureDomain($input['target_uri'])) {
             return json_response([
-                'status' => 'Forbiddent target: ' . $input('target_uri')
+                'status' => 'Forbidden target: ' . $input('target_uri')
             ], 404);
         }
 
