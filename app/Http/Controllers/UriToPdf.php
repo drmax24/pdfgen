@@ -38,22 +38,24 @@ class UriToPdf extends Controller
         if (base64_encode($qsDecoded) === $qs){
             parse_str($qsDecoded,$input);
             dd($input);
+        } else {
+            $input     = Input::all();
         }
 
-        if (!Input::has('target_uri')) {
+        if (!isset($input['target_uri'])) {
             return json_response([
                 'status' => 'Укажите параметр target_uri'
             ], 400);
         }
 
-        if (!$this->isSecureDomain(Input::get('target_uri'))) {
+        if (!$this->isSecureDomain($input['target_uri'])) {
             return json_response([
-                'status' => 'Forbiddent target: ' . Input::get('target_uri')
+                'status' => 'Forbiddent target: ' . $input('target_uri')
             ], 404);
         }
 
-        if (Input::has('pdf_file_name')) {
-            $pdfFileName = Input::get('pdf_file_name');
+        if (isset($input['pdf_file_name'])) {
+            $pdfFileName = $input['pdf_file_name'];
             $ext         = strtolower(pathinfo($pdfFileName, PATHINFO_EXTENSION));
             if ($ext != 'pdf') {
                 $pdfFileName .= '.pdf';
@@ -61,9 +63,6 @@ class UriToPdf extends Controller
         }
 
 
-        //parse_url(Input::get('target_uri'));
-
-        $input     = Input::all();
         $targetUri = $input['target_uri'];
 
 
@@ -93,7 +92,7 @@ class UriToPdf extends Controller
         if (Input::get('email.to')) {
 
             $validator = \Validator::make(
-                Input::all(), [
+                $input, [
                     'email.from'    => 'required|email',
                     'email.to'      => 'required',
                     'email.subject' => 'required',
@@ -112,17 +111,17 @@ class UriToPdf extends Controller
 
 
             Mail
-                ::to(Input::get('email.to'))
+                ::to($input['email']['to'])
                 ->queue(new PdfMail(
-                    Input::get('email.from'),
-                    Input::get('email.subject'),
-                    Input::get('email.body'),
-                    Input::get('pdf_file_name'),
+                    $input['email']['from'],
+                    $input['email']['subject'],
+                    $input['email']['body'],
+                    $input['pdf_file_name'],
                     base64_encode($pdfData)));
-            app('sentry')->captureMessage('Письмо добавлено в очередь: ' . print_r(Input::get('email.to'), true), [],
+            app('sentry')->captureMessage('Письмо добавлено в очередь: ' . print_r($input['email']['to'], true), [],
                 ['level' => 'info']);
         } else {
-            if ($pdfFileName && Input::get('open_file_in_browser')) {
+            if ($pdfFileName && $input['open_file_in_browser']) {
 
                 $pdf->send($pdfFileName, true);
                 exit;
