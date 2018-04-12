@@ -37,12 +37,14 @@ class UriToPdf extends Controller
 
         $qs = urldecode(Request::getQueryString());
         $qsDecoded = base64_decode($qs);
-        if (base64_encode($qsDecoded) === $qs){
+        if ($qs && base64_encode($qsDecoded) === $qs){
             parse_str($qsDecoded,$input);
             $isBase64 = 1;
         } else {
-            $input     = Request::all();
+            $input          = Request::all();
+            $inputSanitized = Request::all();
         }
+
 
         if (!isset($input['target_uri'])) {
             return json_response([
@@ -68,19 +70,15 @@ class UriToPdf extends Controller
         }
 
 
-        $targetUri = $input['target_uri'];
-
-
-
         $pdfConfig = $this->initPdfConfig($input);
         $pdf = new Pdf($pdfConfig);
 
 
         // Строим гет-запрос на страницу снимок которой будем делать
-        unset($input['target_url'], $input['wkhtmltopdf-params']);
-        unset($input['email']);
-        $query = http_build_query($input);
-        $uri = $targetUri . '?' . $query;
+        unset($inputSanitized['target_url'], $inputSanitized['wkhtmltopdf-params']);
+        unset($inputSanitized['email']);
+        $query = http_build_query($inputSanitized);
+        $uri = $input['target_uri'] . '?' . $query;
 
         $pdf->addPage($uri);
 
@@ -93,9 +91,7 @@ class UriToPdf extends Controller
         }
 
 
-
-        if (Input::get('email.to')) {
-
+        if ($input['email']['to']) {
             $validator = \Validator::make(
                 $input, [
                     'email.from'    => 'required|email',
