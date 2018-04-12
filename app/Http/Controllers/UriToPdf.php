@@ -34,13 +34,14 @@ class UriToPdf extends Controller
         $pdfFileName = '';
         $isBase64 = false;
 
+
         $qs = urldecode(Request::getQueryString());
         $qsDecoded = base64_decode($qs);
         if (base64_encode($qsDecoded) === $qs){
             parse_str($qsDecoded,$input);
             $isBase64 = 1;
         } else {
-            $input     = Input::all();
+            $input     = Request::all();
         }
 
         if (!isset($input['target_uri'])) {
