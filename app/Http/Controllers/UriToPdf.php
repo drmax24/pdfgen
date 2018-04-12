@@ -91,7 +91,7 @@ class UriToPdf extends Controller
         }
 
 
-        if ($input['email']['to']) {
+        if (isset($input['email']['to'])) {
             $validator = \Validator::make(
                 $input, [
                     'email.from'    => 'required|email',
