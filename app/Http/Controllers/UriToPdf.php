@@ -122,7 +122,7 @@ class UriToPdf extends Controller
             app('sentry')->captureMessage('Письмо добавлено в очередь: ' . print_r($input['email']['to'], true), [],
                 ['level' => 'info']);
         } else {
-            if ($pdfFileName && $input['open_file_in_browser']) {
+            if ($pdfFileName && @$input['open_file_in_browser']) {
 
                 $pdf->send($pdfFileName, true);
                 exit;
