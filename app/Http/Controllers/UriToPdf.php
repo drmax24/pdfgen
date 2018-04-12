@@ -42,9 +42,9 @@ class UriToPdf extends Controller
             $isBase64 = 1;
         } else {
             $input          = Request::all();
-            $inputSanitized = Request::all();
         }
 
+        $inputSanitized = $input;
 
         if (!isset($input['target_uri'])) {
             return json_response([
