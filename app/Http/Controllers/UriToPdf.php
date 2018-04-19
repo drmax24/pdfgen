@@ -41,7 +41,15 @@ class UriToPdf extends Controller
             parse_str($qsDecoded,$input);
             $isBase64 = 1;
         } else {
-            $input          = Request::all();
+            $qs = str_replace(' ', '+', $qs);
+            $qsDecoded = base64_decode($qs);
+            
+            if ($qs && base64_encode($qsDecoded) === $qs){
+                parse_str($qsDecoded,$input);
+                $isBase64 = 1;
+            } else {
+                $input          = Request::all();
+            }
         }
 
         $inputSanitized = $input;
