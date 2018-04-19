@@ -16,7 +16,7 @@ You can install it on freebsd / ubuntu / mac os.
 This project provides an API wrapper around  
 https://github.com/mikehaertl/phpwkhtmltopdf  
 which is in turn a laravel wrapper around  
-wkhtmltopdf console utility
+wkhtmltopdf console utility  
 https://wkhtmltopdf.org/  
 which is in turn a wrapper around qtwebbrowser
 http://www.qtweb.net/  
